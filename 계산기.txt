@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>카카오에드 모바일 앱 계산기</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendNumber(7)">7</button>
+            <button onclick="appendNumber(8)">8</button>
+            <button onclick="appendNumber(9)">9</button>
+            <button onclick="appendOperator('+')">+</button>
+            <button onclick="appendNumber(4)">4</button>
+            <button onclick="appendNumber(5)">5</button>
+            <button onclick="appendNumber(6)">6</button>
+            <button onclick="appendOperator('-')">-</button>
+            <button onclick="appendNumber(1)">1</button>
+            <button onclick="appendNumber(2)">2</button>
+            <button onclick="appendNumber(3)">3</button>
+            <button onclick="appendOperator('*')">*</button>
+            <button onclick="appendNumber(0)">0</button>
+            <button onclick="appendOperator('.')">.</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendOperator('/')">/</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+.calculator {
+    max-width: 250px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#display {
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+    text-align: right;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+}
+
+button {
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+}
+
+let display = document.getElementById('display');
+let currentInput = '';
+let currentOperator = '';
+let currentResult = '';
+
+function appendNumber(number) {
+    currentInput += number;
+    display.value = currentInput;
+}
+
+function appendOperator(operator) {
+    currentOperator = operator;
+    currentResult += currentInput + operator;
+    currentInput = '';
+    display.value = currentResult;
+}
+
+function calculateResult() {
+    currentResult += currentInput;
+    let result = eval(currentResult);
+    display.value = result;
+    currentInput = result;
+    currentOperator = '';
+    currentResult = '';
+}
+
+function clearDisplay() {
+    currentInput = '';
+    currentOperator = '';
+    currentResult = '';
+    display.value = '';
+}
